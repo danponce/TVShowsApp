@@ -198,6 +198,10 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
             }
         }
 
+        binding.favoriteToolbarImageView.setOnClickListener {
+
+        }
+
     }
 
     private fun executeSearch(query: String) {
