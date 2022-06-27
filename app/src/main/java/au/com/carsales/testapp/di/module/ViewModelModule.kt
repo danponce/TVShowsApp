@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import au.com.carsales.testapp.ui.detail.TVShowDetailViewModel
 import au.com.carsales.testapp.ui.home.HomeViewModel
 import au.com.carsales.testapp.ui.detail.episode.EpisodeDetailViewModel
+import au.com.carsales.testapp.ui.favorites.FavoritesViewModel
 import au.com.carsales.testapp.utils.ViewModelFactory
 import au.com.carsales.testapp.utils.ViewModelKey
 import dagger.Binds
@@ -35,5 +36,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TVShowDetailViewModel::class)
     abstract fun tVShowDetailViewModel(viewModel: TVShowDetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FavoritesViewModel::class)
+    abstract fun favoritesViewModel(viewModel: FavoritesViewModel): ViewModel
 
 }

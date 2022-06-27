@@ -16,6 +16,9 @@
     <string name="episode_detail_season_and_name_title">S%d E%d - %s</string>
     <string name="episode_detail_no_summary_message">No information about this episode…</string>
 
+    <!-- Favorites Fragment -->
+    <string name="favorites_toolbar_title">My Favorites</string>
+
     <!-- Others -->
     <string name="tv_shows_paging_loader_message">Loading more series</string>
 

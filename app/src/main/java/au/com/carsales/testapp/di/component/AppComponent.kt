@@ -5,6 +5,7 @@ import au.com.carsales.testapp.di.module.ViewModelModule
 import au.com.carsales.testapp.ui.detail.TVShowDetailFragment
 import au.com.carsales.testapp.ui.home.HomeFragment
 import au.com.carsales.testapp.ui.detail.episode.EpisodeDetailFragment
+import au.com.carsales.testapp.ui.favorites.FavoritesFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -20,4 +21,5 @@ interface AppComponent {
     fun inject(homeFragment: HomeFragment)
     fun inject(secondFragment: EpisodeDetailFragment)
     fun inject(tvShowDetailFragment: TVShowDetailFragment)
+    fun inject(favoritesFragment : FavoritesFragment)
 }
