@@ -199,7 +199,8 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         }
 
         binding.favoriteToolbarImageView.setOnClickListener {
-
+            val direction = HomeFragmentDirections.goToFavoritesAction()
+            navigate(direction)
         }
 
     }

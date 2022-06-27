@@ -45,6 +45,7 @@
             app:argType="au.com.carsales.testapp.ui.model.EpisodeViewData" />
 
     </fragment>
+
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="au.com.carsales.testapp.ui.favorites.FavoritesFragment"

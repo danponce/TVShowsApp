@@ -30,7 +30,7 @@ class FavoritesFragment : BaseViewBindingFragment<FragmentFavoritesBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         
         getAppComponentInjector().inject(this)
