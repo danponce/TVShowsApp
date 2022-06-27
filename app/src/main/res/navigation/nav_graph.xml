@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="au.com.carsales.testapp.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/go_to_details_action"
+            app:destination="@id/tVShowDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tVShowDetailFragment"
+        android:name="au.com.carsales.testapp.ui.detail.TVShowDetailFragment"
+        android:label="TVShowDetailFragment"
+        tools:layout="@layout/fragment_tvshow_detail">
+
+        <argument
+            android:name="tvShow"
+            app:argType="au.com.carsales.testapp.ui.model.TVSeriesShowViewData" />
+
+        <action
+            android:id="@+id/go_to_episode_detail_action"
+            app:destination="@id/episodeDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/episodeDetailFragment"
+        android:name="au.com.carsales.testapp.ui.detail.episode.EpisodeDetailFragment"
+        android:label="TVShowDetailFragment">
+
+        <argument
+            android:name="episode"
+            app:argType="au.com.carsales.testapp.ui.model.EpisodeViewData" />
+
+    </fragment>
+</navigation>

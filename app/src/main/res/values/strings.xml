@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">TV Shows</string>
+
+    <!-- HomeFragment -->
+    <string name="home_toolbar_title">TV Shows</string>
+
+    <!-- TVShowDetailFragment -->
+    <string name="episodes_season_tab_title">Season %d</string>
+    <string name="episodes_error_message">There was an error trying to search for the episodes. Please try again</string>
+    <string name="episodes_on_air">On AIR!</string>
+    <string name="episodes_menu_search_title">Search</string>
+    <string name="episodes_menu_search_hint">Search…</string>
+
+    <!-- EpisodeDetailFragment -->
+    <string name="episode_detail_season_title">Season %d</string>
+    <string name="episode_detail_season_and_name_title">S%d E%d - %s</string>
+    <string name="episode_detail_no_summary_message">No information about this episode…</string>
+
+    <!-- Others -->
+    <string name="tv_shows_paging_loader_message">Loading more series</string>
+
+</resources>
