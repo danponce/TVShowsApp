@@ -43,13 +43,17 @@ class TVShowDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding
         savedInstanceState: Bundle?
     ): View? {
 
+        super.onCreateView(inflater, container, savedInstanceState)
+
         getAppComponentInjector().inject(this)
 
         detailViewModel = ViewModelProvider(this, viewModelFactory)[TVShowDetailViewModel::class.java]
 
+        detailViewModel.isShowFavorite()
+
         setObservers()
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,25 +79,18 @@ class TVShowDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding
 
         binding.toolbar.setBackButton(requireActivity()) { navigateBack() }
 
-        setFavoriteFab()
+        initListeners()
     }
 
-    private fun setFavoriteFab() {
-
-        val isFavorite = detailViewModel.isShowFavorite()
-
-        setFabDrawable(isFavorite)
+    private fun initListeners() {
 
         binding.fab.setOnClickListener {
-
-            setFabDrawable(!detailViewModel.isShowFavorite())
-
-            if(detailViewModel.isShowFavorite()) {
-                detailViewModel.deleteFavorite()
-            } else {
-                detailViewModel.addFavorite()
+            when(detailViewModel.isActualShowFavorite()) {
+                true -> detailViewModel.deleteFavorite()
+                false -> detailViewModel.addFavorite()
             }
         }
+
     }
 
     private fun setFabDrawable(isFavorite : Boolean) {
@@ -162,6 +159,10 @@ class TVShowDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding
                     val direction = TVShowDetailFragmentDirections.goToEpisodeDetailAction(it)
                     navigate(direction)
                 }
+            }
+
+            isFavoriteLiveData.observe(viewLifecycleOwner) {
+                setFabDrawable(it)
             }
 
         }

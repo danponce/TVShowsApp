@@ -11,16 +11,16 @@ object FavoriteTVShowsManager {
 
     private fun getFavoriteDao() = MyApplication.db?.favoriteTVShowsDao()!!
 
-    fun insertItem(item : TVSeriesShowViewData) {
+    suspend fun insertItem(item : TVSeriesShowViewData) {
         getFavoriteDao().addData(item)
     }
 
-    fun deleteItem(item : TVSeriesShowViewData) {
+    suspend fun deleteItem(item : TVSeriesShowViewData) {
         getFavoriteDao().delete(item)
     }
 
     suspend fun getAllFavorites() = getFavoriteDao().getFavoriteTVShows()
 
-    fun isFavorite(id: Int) : Boolean = getFavoriteDao().isFavorite(id) == 1
+    suspend fun isFavorite(id: Int) : Boolean = getFavoriteDao().isFavorite(id) == 1
 
 }
