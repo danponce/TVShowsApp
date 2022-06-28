@@ -3,6 +3,7 @@
 
     <!-- HomeFragment -->
     <string name="home_toolbar_title">TV Shows</string>
+    <string name="home_empty_results_message">No results found. Why don\'t you try with another search?</string>
 
     <!-- TVShowDetailFragment -->
     <string name="episodes_season_tab_title">Season %d</string>
