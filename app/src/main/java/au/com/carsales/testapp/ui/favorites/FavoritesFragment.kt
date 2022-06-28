@@ -13,6 +13,7 @@ import au.com.carsales.testapp.ui.model.TVSeriesShowViewData
 import au.com.carsales.testapp.utils.ViewModelFactory
 import au.com.carsales.testapp.utils.base.BaseViewBindingFragment
 import au.com.carsales.testapp.utils.base.databinding.SingleLayoutBindRecyclerAdapter
+import au.com.carsales.testapp.utils.base.setBackButton
 import au.com.carsales.testapp.utils.base.state.observeStateLiveData
 import au.com.carsales.testapp.utils.getViewModel
 import javax.inject.Inject
@@ -37,7 +38,9 @@ class FavoritesFragment : BaseViewBindingFragment<FragmentFavoritesBinding>() {
         
         initViewModel()
         initObservers()
-        
+
+        binding.newToolbar.setBackButton(requireActivity()) { navigateBack() }
+
         return binding.root
     }
     
@@ -60,11 +63,23 @@ class FavoritesFragment : BaseViewBindingFragment<FragmentFavoritesBinding>() {
                 favoritesList,
                 clickHandler = { view, item ->
 
-                    Toast.makeText(requireContext(), "hello!", Toast.LENGTH_SHORT).show()
+                    when(view.id) {
+                        R.id.favoriteContainer -> goToDetailScreen(item)
+
+                        R.id.favoriteImageView -> {
+                            favoritesViewModel.deleteFromFavorites(item)
+                        }
+                    }
                     
                 }
             )
         }
+    }
+
+    private fun goToDetailScreen(item : TVSeriesShowViewData) {
+        val direction = FavoritesFragmentDirections.goToEpisodeDetailAction(item)
+
+        navigate(direction)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

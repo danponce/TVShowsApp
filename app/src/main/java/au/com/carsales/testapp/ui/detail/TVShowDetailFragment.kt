@@ -49,8 +49,6 @@ class TVShowDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding
 
         detailViewModel = ViewModelProvider(this, viewModelFactory)[TVShowDetailViewModel::class.java]
 
-        detailViewModel.isShowFavorite()
-
         setObservers()
 
         return binding.root
@@ -73,6 +71,8 @@ class TVShowDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding
 
             setView(tvShow)
         }
+
+        detailViewModel.isShowFavorite()
 
         binding.viewModel = detailViewModel
         binding.lifecycleOwner = viewLifecycleOwner

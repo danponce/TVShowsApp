@@ -20,6 +20,7 @@
             android:layout_height="?attr/actionBarSize"
             app:titleTextColor="@color/white"
             android:minHeight="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24_white"
             app:title="@string/favorites_toolbar_title"
             tools:title="@string/favorites_toolbar_title">
 

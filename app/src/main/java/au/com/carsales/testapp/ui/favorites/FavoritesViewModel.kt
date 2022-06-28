@@ -38,4 +38,12 @@ class FavoritesViewModel @Inject constructor() : BaseBindingViewModel() {
             )
         }
     }
+
+    fun deleteFromFavorites(item: TVSeriesShowViewData) {
+        viewModelScope.launch(Dispatchers.IO) {
+            FavoriteTVShowsManager.deleteItem(item)
+
+            getFavoritesTVShows()
+        }
+    }
 }

@@ -17,6 +17,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/favoriteContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
@@ -79,6 +80,7 @@
             app:layout_constraintRight_toLeftOf="@id/ratingTextView"/>
 
         <ImageView
+            android:id="@+id/favoriteImageView"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:src="@drawable/ic_baseline_favorite_24"
