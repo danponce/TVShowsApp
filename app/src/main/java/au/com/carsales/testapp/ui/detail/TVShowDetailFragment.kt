@@ -61,6 +61,13 @@ class TVShowDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding
 
         if(viewModelData != null) {
             setEpisodesTabLayout(detailViewModel.getEpisodesSeasons())
+            val lastShow = detailViewModel.getLastShow()
+
+            // Set again views with last show from API
+            lastShow?.let {
+                setView(it)
+            }
+
         } else {
             val args : TVShowDetailFragmentArgs by navArgs()
 

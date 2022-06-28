@@ -1,11 +1,10 @@
 package au.com.carsales.testapp.utils.base
 
 import android.app.Activity
+import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 
 /**
  * Created by Dan on 25, junio, 2022
@@ -18,4 +17,14 @@ fun Toolbar.setBackButton(context: Activity, clickAction : () -> Unit) {
     }
 
     this.setNavigationOnClickListener { clickAction.invoke() }
+}
+
+fun Fragment.getToolbarHeight() : Int? {
+    val tv = TypedValue()
+    if (requireActivity().theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+
+        return TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
+    }
+
+    return null
 }

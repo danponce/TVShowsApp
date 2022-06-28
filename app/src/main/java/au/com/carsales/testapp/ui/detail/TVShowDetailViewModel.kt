@@ -84,6 +84,8 @@ class TVShowDetailViewModel @Inject constructor(
         showItem = data
     }
 
+    fun getLastShow() = showItem
+
     fun getEpisodesSeasons() : List<EpisodesSeason> {
 
         val episodesMap = hashMapOf<Int, ArrayList<EpisodeViewData>>()

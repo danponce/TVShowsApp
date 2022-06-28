@@ -3,6 +3,7 @@
 
     <!-- HomeFragment -->
     <string name="home_toolbar_title">TV Shows</string>
+    <string name="home_empty_results_message">No results found. Why don\'t you try with another search?</string>
 
     <!-- TVShowDetailFragment -->
     <string name="episodes_season_tab_title">Season %d</string>
@@ -24,5 +25,5 @@
     <!-- Others -->
     <string name="tv_shows_paging_loader_message">Loading more series</string>
     <string name="empty_all_message">No results found</string>
-
+    <string name="error_view_message">Ups… There was an error connecting to the server. Please try again</string>
 </resources>

@@ -12,7 +12,8 @@ fun <T> LiveData<State<T>>.observeStateLiveData(
     lifecycleOwner: LifecycleOwner,
     onSuccess: ((State.Success<T>) -> Unit)? = null,
     onLoading: ((State.Loading<T>) -> Unit)? = null,
-    onError: ((State.Error<*>) -> Unit)? = null
+    onError: ((State.Error<*>) -> Unit)? = null,
+    onEmpty: ((State.Empty<T>) -> Unit)? = null
 ) {
     this.removeObservers(lifecycleOwner)
     this.observe(lifecycleOwner) {
@@ -20,6 +21,7 @@ fun <T> LiveData<State<T>>.observeStateLiveData(
             is State.Success -> onSuccess?.invoke(it)
             is State.Loading -> onLoading?.invoke(it)
             is State.Error -> onError?.invoke(it)
+            is State.Empty -> onEmpty?.invoke(it)
             else -> {}
         }
     }
