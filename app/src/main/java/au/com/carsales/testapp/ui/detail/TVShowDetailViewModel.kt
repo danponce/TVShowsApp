@@ -27,6 +27,7 @@ class TVShowDetailViewModel @Inject constructor(
 
     val tvShowViewData = MutableLiveData<TVSeriesShowViewData>()
     var showId : Int ?= null
+    private var showItem : TVSeriesShowViewData?= null
 
     private val _episodesLiveData = MutableLiveData<State<List<EpisodeViewData>>>()
     val episodesLiveData : LiveData<State<List<EpisodeViewData>>> = _episodesLiveData
@@ -75,7 +76,10 @@ class TVShowDetailViewModel @Inject constructor(
     fun setTVShowData(data : TVSeriesShowViewData) {
         tvShowViewData.postValue(data)
         showId = data.id
+        showItem = data
     }
+
+    fun getLastShow() = showItem
 
     fun getEpisodesSeasons() : List<EpisodesSeason> {
 
