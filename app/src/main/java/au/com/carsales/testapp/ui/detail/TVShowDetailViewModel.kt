@@ -108,7 +108,7 @@ class TVShowDetailViewModel @Inject constructor(
     fun getExistentEpisodesData(): List<EpisodeViewData>? = episodeList
 
     fun isShowFavorite() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = async { FavoriteTVShowsManager.isFavorite(showId ?: 0) }
             val isFavorite = result.await()
 
@@ -120,7 +120,7 @@ class TVShowDetailViewModel @Inject constructor(
 
     fun deleteFavorite() {
         showItem?.let {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 FavoriteTVShowsManager.deleteItem(it)
                 _isFavoriteLiveData.postValue(false)
             }
@@ -129,7 +129,7 @@ class TVShowDetailViewModel @Inject constructor(
 
     fun addFavorite() {
         showItem?.let {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 FavoriteTVShowsManager.insertItem(it)
                 _isFavoriteLiveData.postValue(true)
             }

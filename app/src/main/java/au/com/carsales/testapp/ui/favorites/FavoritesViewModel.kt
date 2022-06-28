@@ -7,6 +7,7 @@ import au.com.carsales.testapp.ui.model.TVSeriesShowViewData
 import au.com.carsales.testapp.utils.base.State
 import au.com.carsales.testapp.utils.base.coroutines.processAsyncJob
 import au.com.carsales.testapp.utils.base.viewmodel.BaseBindingViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,7 +24,7 @@ class FavoritesViewModel @Inject constructor() : BaseBindingViewModel() {
 
     fun getFavoritesTVShows() {
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             processAsyncJob(
                 block = {getFavoritesDBRequest()},
                 result = {
