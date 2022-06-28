@@ -10,6 +10,7 @@ import au.com.carsales.testapp.domain.GetShowsUseCase
 import au.com.carsales.testapp.ui.mapper.TVSeriesShowMapper
 import au.com.carsales.testapp.ui.model.TVSeriesShowViewData
 import au.com.carsales.testapp.utils.base.State
+import au.com.carsales.testapp.utils.base.coroutines.CoroutinesContextProvider
 import au.com.carsales.testapp.utils.base.coroutines.processAsyncJob
 import au.com.carsales.testapp.utils.base.viewmodel.BaseBindingViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +27,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val tvSeriesShowMapper: TVSeriesShowMapper,
     private val getShowsUseCase: GetShowsUseCase,
-    private val getShowsSearchUseCase: GetSeriesSearchUseCase
+    private val getShowsSearchUseCase: GetSeriesSearchUseCase,
+    private val coroutinesContextProvider: CoroutinesContextProvider
 ) : BaseBindingViewModel() {
 
     private val _tvShowsLiveData = MutableLiveData<PagingData<TVSeriesShowViewData>>()
@@ -41,7 +43,7 @@ class HomeViewModel @Inject constructor(
 
     var lastQuery : String?= null
 
-    suspend fun searchTVShowsRequest(query: String) = withContext(Dispatchers.IO) {
+    suspend fun searchTVShowsRequest(query: String) = withContext(coroutinesContextProvider.IO) {
         getShowsSearchUseCase.getTVSeriesSearch(query)
     }
 
