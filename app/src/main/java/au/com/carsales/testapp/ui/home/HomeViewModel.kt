@@ -63,16 +63,22 @@ class HomeViewModel @Inject constructor(
             processAsyncJob(
                 block = { searchTVShowsRequest(query) },
                 result = {
-                    if (it.isNullOrEmpty()) {
+                    if (it == null) {
                         _tvShowsSearchLiveData.postValue(State.error())
                         setErrorStatus()
                     } else {
-                        val mappedResult = it.filterNotNull()
-                            .mapNotNull { item -> tvSeriesShowMapper.executeMapping(item.show) }
 
-                        _tvShowsSearchLiveData.postValue(State.success(mappedResult))
+                        if(it.isEmpty()) {
+                            _tvShowsSearchLiveData.postValue(State.empty())
+                            setEmptyStatus()
+                        } else {
+                            val mappedResult = it.filterNotNull()
+                                .mapNotNull { item -> tvSeriesShowMapper.executeMapping(item.show) }
 
-                        setSuccessStatus()
+                            _tvShowsSearchLiveData.postValue(State.success(mappedResult))
+
+                            setSuccessStatus()
+                        }
                     }
                 },
                 onError = {

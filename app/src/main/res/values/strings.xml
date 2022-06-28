@@ -19,5 +19,5 @@
     <!-- Others -->
     <string name="tv_shows_paging_loader_message">Loading more series</string>
     <string name="empty_all_message">No results found</string>
-
+    <string name="error_view_message">Ups… There was an error connecting to the server. Please try again</string>
 </resources>

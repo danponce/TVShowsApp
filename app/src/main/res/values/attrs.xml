@@ -5,4 +5,12 @@
         <attr name="text" format="string"/>
     </declare-styleable>
 
+    <declare-styleable name="EmptyListView">
+        <attr name="text" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="ErrorView">
+        <attr name="text" format="string"/>
+    </declare-styleable>
+
 </resources>
