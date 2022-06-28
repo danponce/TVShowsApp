@@ -41,13 +41,6 @@ class HomeViewModel @Inject constructor(
 
     var lastQuery : String?= null
 
-    fun getExistentTVShowData(): PagingData<TVSeriesShowViewData>? {
-        return when (tvShowsStateLiveData.value) {
-            is State.Success -> _tvShowsLiveData.value
-            else -> null
-        }
-    }
-
     suspend fun searchTVShowsRequest(query: String) = withContext(Dispatchers.IO) {
         getShowsSearchUseCase.getTVSeriesSearch(query)
     }
@@ -55,6 +48,8 @@ class HomeViewModel @Inject constructor(
     fun searchTVShows(query: String) {
 
         setLoadingStatus()
+
+        _tvShowsSearchLiveData.postValue(State.loading())
 
         lastQuery = query
         lastSearchExecuted = HomeSearchType.COMMON_TYPE
@@ -132,6 +127,14 @@ class HomeViewModel @Inject constructor(
         return when(tvShowSearchLiveData.value) {
             is State.Success -> (tvShowSearchLiveData.value as State.Success).data
             else -> null
+        }
+    }
+
+    fun executeLastRequest() {
+        when(lastSearchExecuted) {
+            null -> getTVShows()
+            HomeSearchType.COMMON_TYPE -> searchTVShows(lastQuery.orEmpty())
+            HomeSearchType.PAGING_TYPE -> getTVShows()
         }
     }
 }

@@ -18,6 +18,7 @@ import au.com.carsales.testapp.utils.ViewModelFactory
 import au.com.carsales.testapp.utils.base.BaseDataBindingFragment
 import au.com.carsales.testapp.utils.base.databinding.BaseBindClickHandler
 import au.com.carsales.testapp.utils.base.databinding.SingleLayoutBindRecyclerAdapter
+import au.com.carsales.testapp.utils.base.getToolbarHeight
 import au.com.carsales.testapp.utils.base.state.observeStateLiveData
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -63,7 +64,9 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 if(homeViewModel.lastSearchExecuted == HomeSearchType.COMMON_TYPE) {
                     setDataToRecyclerView(it.data)
                 }
-            })
+            },
+            onLoading = { binding.swipeRefreshView.isRefreshing = false}
+        )
 
         homeViewModel.tvShowsStateLiveData.observeStateLiveData(
             viewLifecycleOwner,
@@ -73,7 +76,8 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 if(adapter?.itemCount == 0) {
                     homeViewModel.setEmptyStatus()
                 }
-            }
+            },
+            onLoading = { binding.swipeRefreshView.isRefreshing = false}
         )
     }
 
@@ -152,24 +156,9 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         // there's no data on view model
         if(lastExecutedSearch == null) {
             homeViewModel.getTVShows()
-        } else {
-//            setLastDataToRecyclerView(lastExecutedSearch)
         }
 
         setObservers()
-
-    }
-
-    private fun setLastDataToRecyclerView(lastExecutedSearchType: HomeSearchType) {
-
-        when(lastExecutedSearchType) {
-            HomeSearchType.COMMON_TYPE -> setCommonRecyclerView(homeViewModel.getLastData())
-            HomeSearchType.PAGING_TYPE -> {
-                homeViewModel.getExistentTVShowData()?.let {
-                    setPagingDataToRecyclerView(it)
-                }
-            }
-        }
 
     }
 
@@ -196,6 +185,15 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 homeViewModel.getTVShows()
                 false
             }
+        }
+
+        // Let swipe refresh start just below toolbar
+        val toolbarHeight = getToolbarHeight() ?: 50
+
+        val endOffset = binding.swipeRefreshView.progressViewEndOffset
+        binding.swipeRefreshView.setProgressViewOffset(false, toolbarHeight, endOffset + toolbarHeight)
+        binding.swipeRefreshView.setOnRefreshListener {
+            homeViewModel.executeLastRequest()
         }
 
     }
