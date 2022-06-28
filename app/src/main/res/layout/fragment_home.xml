@@ -55,14 +55,15 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_favorite_border_24"
                     app:tint="@color/secondaryColor"
-                    android:layout_gravity="end"/>
+                    android:layout_gravity="end"
+                    android:layout_marginRight="14dp"/>
 
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/searchView"
                     android:theme="@style/SearchViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"/>
+                    android:layout_gravity="end" />
 
             </androidx.appcompat.widget.Toolbar>
 

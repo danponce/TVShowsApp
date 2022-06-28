@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import au.com.carsales.testapp.R
 import au.com.carsales.testapp.databinding.FragmentFavoritesBinding
 import au.com.carsales.testapp.getAppComponentInjector
 import au.com.carsales.testapp.ui.model.TVSeriesShowViewData
 import au.com.carsales.testapp.utils.ViewModelFactory
-import au.com.carsales.testapp.utils.base.BaseViewBindingFragment
+import au.com.carsales.testapp.utils.base.BaseDataBindingFragment
 import au.com.carsales.testapp.utils.base.databinding.SingleLayoutBindRecyclerAdapter
 import au.com.carsales.testapp.utils.base.setBackButton
 import au.com.carsales.testapp.utils.base.state.observeStateLiveData
@@ -22,7 +21,9 @@ import javax.inject.Inject
  * Created by Dan on 27, junio, 2022
  * Copyright (c) 2022 Carsales. All rights reserved.
  */
-class FavoritesFragment : BaseViewBindingFragment<FragmentFavoritesBinding>() {
+class FavoritesFragment : BaseDataBindingFragment<FragmentFavoritesBinding>() {
+
+    override fun layoutId(): Int = R.layout.fragment_favorites
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -86,5 +87,7 @@ class FavoritesFragment : BaseViewBindingFragment<FragmentFavoritesBinding>() {
         super.onViewCreated(view, savedInstanceState)
         
         favoritesViewModel.getFavoritesTVShows()
+
+        binding.viewModel = favoritesViewModel
     }
 }

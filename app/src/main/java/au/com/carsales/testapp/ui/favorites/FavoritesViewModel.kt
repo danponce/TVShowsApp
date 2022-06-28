@@ -32,12 +32,15 @@ class FavoritesViewModel @Inject constructor() : BaseBindingViewModel() {
 
                     if(result.isNullOrEmpty()) {
                         _favoritesLiveData.postValue(State.error())
+                        setErrorStatus()
                     } else {
                         _favoritesLiveData.postValue(State.success(result))
+                        setSuccessStatus()
                     }
                 },
                 onError = {
                     _favoritesLiveData.postValue(State.error())
+                    setErrorStatus()
                 }
             )
         }
