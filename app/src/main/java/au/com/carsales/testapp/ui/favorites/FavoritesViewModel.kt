@@ -26,11 +26,15 @@ class FavoritesViewModel @Inject constructor() : BaseBindingViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             processAsyncJob(
-                block = {getFavoritesDBRequest()},
+                block = { getFavoritesDBRequest() },
                 result = {
                     val result = it?.filterNotNull()
 
-                    _favoritesLiveData.postValue(State.success(result))
+                    if(result.isNullOrEmpty()) {
+                        _favoritesLiveData.postValue(State.error())
+                    } else {
+                        _favoritesLiveData.postValue(State.success(result))
+                    }
                 },
                 onError = {
                     _favoritesLiveData.postValue(State.error())
