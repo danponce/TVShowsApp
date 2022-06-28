@@ -18,5 +18,6 @@
 
     <!-- Others -->
     <string name="tv_shows_paging_loader_message">Loading more series</string>
+    <string name="empty_all_message">No results found</string>
 
 </resources>
