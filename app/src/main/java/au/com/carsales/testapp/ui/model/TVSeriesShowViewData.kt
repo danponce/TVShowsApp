@@ -1,8 +1,8 @@
 package au.com.carsales.testapp.ui.model
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 /**
