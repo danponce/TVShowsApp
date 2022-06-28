@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,6 +74,36 @@ class TVShowDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.toolbar.setBackButton(requireActivity()) { navigateBack() }
+
+        setFavoriteFab()
+    }
+
+    private fun setFavoriteFab() {
+
+        val isFavorite = detailViewModel.isShowFavorite()
+
+        setFabDrawable(isFavorite)
+
+        binding.fab.setOnClickListener {
+
+            setFabDrawable(!detailViewModel.isShowFavorite())
+
+            if(detailViewModel.isShowFavorite()) {
+                detailViewModel.deleteFavorite()
+            } else {
+                detailViewModel.addFavorite()
+            }
+        }
+    }
+
+    private fun setFabDrawable(isFavorite : Boolean) {
+        val drawable = ContextCompat.getDrawable(
+            requireContext(),
+            if(isFavorite) {
+                R.drawable.ic_baseline_favorite_24
+            } else { R.drawable.ic_baseline_favorite_border_24 })
+
+        binding.fab.setImageDrawable(drawable)
     }
 
     private fun setView(data: TVSeriesShowViewData) {

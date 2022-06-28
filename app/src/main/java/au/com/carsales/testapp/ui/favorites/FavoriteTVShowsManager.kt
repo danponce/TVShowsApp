@@ -21,4 +21,6 @@ object FavoriteTVShowsManager {
 
     suspend fun getAllFavorites() = getFavoriteDao().getFavoriteTVShows()
 
+    fun isFavorite(id: Int) : Boolean = getFavoriteDao().isFavorite(id) == 1
+
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import au.com.carsales.testapp.domain.GetEpisodesUseCase
 import au.com.carsales.testapp.ui.detail.episode.EpisodesSeason
+import au.com.carsales.testapp.ui.favorites.FavoriteTVShowsManager
 import au.com.carsales.testapp.ui.mapper.EpisodeMapper
 import au.com.carsales.testapp.ui.model.EpisodeViewData
 import au.com.carsales.testapp.ui.model.TVSeriesShowViewData
@@ -27,6 +28,7 @@ class TVShowDetailViewModel @Inject constructor(
 
     val tvShowViewData = MutableLiveData<TVSeriesShowViewData>()
     var showId : Int ?= null
+    var showItem : TVSeriesShowViewData?= null
 
     private val _episodesLiveData = MutableLiveData<State<List<EpisodeViewData>>>()
     val episodesLiveData : LiveData<State<List<EpisodeViewData>>> = _episodesLiveData
@@ -75,6 +77,7 @@ class TVShowDetailViewModel @Inject constructor(
     fun setTVShowData(data : TVSeriesShowViewData) {
         tvShowViewData.postValue(data)
         showId = data.id
+        showItem = data
     }
 
     fun getEpisodesSeasons() : List<EpisodesSeason> {
@@ -99,4 +102,18 @@ class TVShowDetailViewModel @Inject constructor(
     }
 
     fun getExistentEpisodesData(): List<EpisodeViewData>? = episodeList
+
+    fun isShowFavorite() : Boolean = FavoriteTVShowsManager.isFavorite(showId ?: 0)
+
+    fun deleteFavorite() {
+        showItem?.let {
+            FavoriteTVShowsManager.deleteItem(it)
+        }
+    }
+
+    fun addFavorite() {
+        showItem?.let {
+            FavoriteTVShowsManager.insertItem(it)
+        }
+    }
 }
