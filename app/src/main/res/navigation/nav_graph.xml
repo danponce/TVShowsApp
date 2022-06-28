@@ -13,7 +13,11 @@
 
         <action
             android:id="@+id/go_to_details_action"
-            app:destination="@id/tVShowDetailFragment" />
+            app:destination="@id/tVShowDetailFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
     </fragment>
 
     <fragment
@@ -28,7 +32,11 @@
 
         <action
             android:id="@+id/go_to_episode_detail_action"
-            app:destination="@id/episodeDetailFragment" />
+            app:destination="@id/episodeDetailFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
 
     </fragment>
 
