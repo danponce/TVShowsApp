@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import au.com.carsales.testapp.domain.GetEpisodesUseCase
 import au.com.carsales.testapp.ui.detail.episode.EpisodesSeason
+import au.com.carsales.testapp.ui.favorites.FavoriteTVShowsManager
 import au.com.carsales.testapp.ui.mapper.EpisodeMapper
 import au.com.carsales.testapp.ui.model.EpisodeViewData
 import au.com.carsales.testapp.ui.model.TVSeriesShowViewData
@@ -12,6 +13,7 @@ import au.com.carsales.testapp.utils.base.State
 import au.com.carsales.testapp.utils.base.coroutines.processAsyncJob
 import au.com.carsales.testapp.utils.base.viewmodel.BaseBindingViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -27,7 +29,10 @@ class TVShowDetailViewModel @Inject constructor(
 
     val tvShowViewData = MutableLiveData<TVSeriesShowViewData>()
     var showId : Int ?= null
-    private var showItem : TVSeriesShowViewData?= null
+    var showItem : TVSeriesShowViewData?= null
+
+    private val _isFavoriteLiveData = MutableLiveData<Boolean>()
+    val isFavoriteLiveData : LiveData<Boolean> = _isFavoriteLiveData
 
     private val _episodesLiveData = MutableLiveData<State<List<EpisodeViewData>>>()
     val episodesLiveData : LiveData<State<List<EpisodeViewData>>> = _episodesLiveData
@@ -103,4 +108,33 @@ class TVShowDetailViewModel @Inject constructor(
     }
 
     fun getExistentEpisodesData(): List<EpisodeViewData>? = episodeList
+
+    fun isShowFavorite() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = async { FavoriteTVShowsManager.isFavorite(showId ?: 0) }
+            val isFavorite = result.await()
+
+            _isFavoriteLiveData.postValue(isFavorite)
+        }
+    }
+
+    fun isActualShowFavorite() = _isFavoriteLiveData.value ?: false
+
+    fun deleteFavorite() {
+        showItem?.let {
+            viewModelScope.launch(Dispatchers.IO) {
+                FavoriteTVShowsManager.deleteItem(it)
+                _isFavoriteLiveData.postValue(false)
+            }
+        }
+    }
+
+    fun addFavorite() {
+        showItem?.let {
+            viewModelScope.launch(Dispatchers.IO) {
+                FavoriteTVShowsManager.insertItem(it)
+                _isFavoriteLiveData.postValue(true)
+            }
+        }
+    }
 }

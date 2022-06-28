@@ -18,6 +18,14 @@
             app:popExitAnim="@anim/fade_out"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"/>
+
+        <action
+            android:id="@+id/go_to_favorites_action"
+            app:destination="@id/favoritesFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
     </fragment>
 
     <fragment
@@ -48,6 +56,22 @@
         <argument
             android:name="episode"
             app:argType="au.com.carsales.testapp.ui.model.EpisodeViewData" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="au.com.carsales.testapp.ui.favorites.FavoritesFragment"
+        android:label="FavoritesFragment"
+        tools:layout="@layout/fragment_favorites">
+
+        <action
+            android:id="@+id/go_to_episode_detail_action"
+            app:destination="@id/tVShowDetailFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
 
     </fragment>
 </navigation>

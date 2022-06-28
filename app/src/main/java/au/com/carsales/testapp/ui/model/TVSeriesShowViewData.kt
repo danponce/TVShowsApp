@@ -1,6 +1,8 @@
 package au.com.carsales.testapp.ui.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -8,7 +10,9 @@ import kotlinx.parcelize.Parcelize
  * Copyright (c) 2022 Carsales. All rights reserved.
  */
 @Parcelize
+@Entity(tableName="favoriteTVShow")
 data class TVSeriesShowViewData (
+    @PrimaryKey
     val id : Int?= null,
     val url : String?= null,
     val name : String?= null,

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,13 +43,15 @@ class TVShowDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding
         savedInstanceState: Bundle?
     ): View? {
 
+        super.onCreateView(inflater, container, savedInstanceState)
+
         getAppComponentInjector().inject(this)
 
         detailViewModel = ViewModelProvider(this, viewModelFactory)[TVShowDetailViewModel::class.java]
 
         setObservers()
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,10 +79,35 @@ class TVShowDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding
             setView(tvShow)
         }
 
+        detailViewModel.isShowFavorite()
+
         binding.viewModel = detailViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.toolbar.setBackButton(requireActivity()) { navigateBack() }
+
+        initListeners()
+    }
+
+    private fun initListeners() {
+
+        binding.fab.setOnClickListener {
+            when(detailViewModel.isActualShowFavorite()) {
+                true -> detailViewModel.deleteFavorite()
+                false -> detailViewModel.addFavorite()
+            }
+        }
+
+    }
+
+    private fun setFabDrawable(isFavorite : Boolean) {
+        val drawable = ContextCompat.getDrawable(
+            requireContext(),
+            if(isFavorite) {
+                R.drawable.ic_baseline_favorite_24
+            } else { R.drawable.ic_baseline_favorite_border_24 })
+
+        binding.fab.setImageDrawable(drawable)
     }
 
     private fun setView(data: TVSeriesShowViewData) {
@@ -138,6 +166,10 @@ class TVShowDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding
                     val direction = TVShowDetailFragmentDirections.goToEpisodeDetailAction(it)
                     navigate(direction)
                 }
+            }
+
+            isFavoriteLiveData.observe(viewLifecycleOwner) {
+                setFabDrawable(it)
             }
 
         }

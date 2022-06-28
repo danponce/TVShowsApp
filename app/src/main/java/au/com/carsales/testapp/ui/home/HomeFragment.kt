@@ -196,6 +196,11 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
             homeViewModel.executeLastRequest()
         }
 
+        binding.favoriteToolbarImageView.setOnClickListener {
+            val direction = HomeFragmentDirections.goToFavoritesAction()
+            navigate(direction)
+        }
+
     }
 
     private fun executeSearch(query: String) {
